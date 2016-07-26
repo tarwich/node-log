@@ -1,0 +1,24 @@
+{
+  "name": "node-log",
+  "version": "1.0.0",
+  "description": "Simple categorical log system for node",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tarwich/node-log.git"
+  },
+  "keywords": [],
+  "author": "Samuel Dillow",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tarwich/node-log/issues"
+  },
+  "homepage": "https://github.com/tarwich/node-log#readme",
+  "dependencies": {
+    "eslint": "3.1.1",
+    "eslint-config-tarwich": "github:tarwich/eslint-config-tarwich#v1.0"
+  }
+}

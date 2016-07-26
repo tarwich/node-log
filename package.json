@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/tarwich/node-log#readme",
   "dependencies": {
-    "eslint": "3.1.1",
-    "eslint-config-tarwich": "github:tarwich/eslint-config-tarwich#v1.0"
+    "chalk": "^1.1.3",
+    "config": "github:tarwich/node-config#v1.0",
+    "eslint": "^3.1.1",
+    "eslint-config-tarwich": "github:tarwich/eslint-config-tarwich#v1.0",
+    "tracer": "^0.8.3"
   }
 }

@@ -2,9 +2,17 @@
 
 // Libraries
 let chalk  = require('chalk');
-let config = require('config');
 let tracer = require('tracer');
 let fs     = require('fs');
+
+let config = (() => {
+  try {
+    return require('config');
+  }
+  catch (error) {
+    return {};
+  }
+})();
 
 // Variables
 let log     = {debug: o => o};
@@ -36,14 +44,14 @@ let wildcard = search => {
 let logLevels = {};
 let logLevel = function(name) {
   if (!logLevels[name]) {
-    for (let level of Object.keys(config.logs)) {
+    for (let level of Object.keys(config.logs || {})) {
       if (wildcard(level).test(name)) {
         logLevels[name] = config.logs[level];
         break;
       }
     }
 
-    if (!logLevels[name]) logLevels[name] = config.defaultLogLevel;
+    if (!logLevels[name]) logLevels[name] = config.defaultLogLevel || 'info';
   }
 
   return logLevels[name];
@@ -53,7 +61,7 @@ let logLevel = function(name) {
 let logFiles = [];
 
 try {
-  for (let fileName in config.logFiles) {
+  for (let fileName in config.logFiles || {}) {
     if (config.logFiles.hasOwnProperty(fileName)) {
       let setting = config.logFiles[fileName];
       // Add this logFile to the batch
@@ -69,7 +77,7 @@ catch (e) {
   console.log(e.stack);
 }
 
-let getLogger = function(name) {
+let getLogger = function(name, level) {
   // Make the logger if it doesn't exist
   if (!loggers[name]) {
     // Log
@@ -78,7 +86,7 @@ let getLogger = function(name) {
     // Make the logger
     loggers[name] = tracer.colorConsole({
       dateformat: 'HH:MM',
-      level:      logLevel(name),
+      level:      level || logLevel(name),
       inspectOpt: {
         colors:     true,
         showHidden: true,

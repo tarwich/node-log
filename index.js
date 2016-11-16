@@ -124,7 +124,8 @@ let getLogger = function(name, level) {
           for (let logFile of logFiles) {
             if (data.level >= logFile.level) {
               try {
-                fs.write(logFile.file, chalk.stripColor(data.output + '\n'));
+                const colorLess = chalk.stripColor(data.output + '\n');
+                fs.write(logFile.file, colorLess, () => {});
               }
               catch (e) {
                 console.error(
